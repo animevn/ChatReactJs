@@ -27,14 +27,14 @@ export const FirestoreProvider = ({children})=>{
     async function populateMessages(){
       if (currentUser){
         const temp = JSON.parse(database);
-        const tempList = []
-        await temp.forEach(item=>{
-          tempList.push(item);
-        });
+        const tempList = [];
+        await temp.forEach(item=>tempList.push(item));
         await setMessages(temp);
       }
     }
     populateMessages().then()
+
+    // eslint-disable-next-line
   }, [database]);
 
   // useEffect(()=>{

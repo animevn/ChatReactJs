@@ -8,9 +8,8 @@ import {FirestoreContext} from "./utils/Firestore";
 const Secret = ()=>{
 
   const {currentUser} = useContext(AuthContext);
-  const db = firebase.firestore().collection("messages");
   const [message, setMessage] = useState("");
-  const {messages, setMessages} = useContext(FirestoreContext);
+  const {messages} = useContext(FirestoreContext);
 
   useEffect(()=>{
     const obj = document.getElementById("scroll");
@@ -21,16 +20,25 @@ const Secret = ()=>{
     event.preventDefault();
     const body = event.target.value;
     setMessage(body);
-  }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && event.shiftKey === false) {
+      event.preventDefault();
+      onSendClick();
+    }
+  };
 
   const onSendClick = ()=>{
-    const time = (new Date()).getTime();
-    const temp = [...messages, {sender: currentUser.uid, body:message, date:time}];
-    const stringTemp = JSON.stringify(temp);
-    const db = firebase.firestore().collection("messages").doc(currentUser.uid);
-    db.set({string:stringTemp}).then(()=>console.log("sucess")).catch(err=>console.log(err));
-    setMessage("");
-  }
+    if (message.length > 0){
+      const time = (new Date()).getTime();
+      const temp = [...messages, {sender: currentUser.uid, body:message, date:time}];
+      const stringTemp = JSON.stringify(temp);
+      const db = firebase.firestore().collection("messages").doc(currentUser.uid);
+      db.set({string:stringTemp}).then(()=>console.log("sucess")).catch(err=>console.log(err));
+      setMessage("");
+    }
+  };
 
   return (
     <div className="container mt-2 test">
@@ -42,13 +50,17 @@ const Secret = ()=>{
         })}
       </div>
 
-      <form className="container fixed-bottom mb-5">
+      <form className="container fixed-bottom mb-5"
+            onSubmit={onSendClick}
+            onKeyDown={handleKeyDown}>
         <div className="input-group input-group-lg col-xl-7 col-lg-8
           col-md-9 col-sm-11 col-11 mb-3 mx-auto">
           <input type="text" className="form-control border-success" placeholder="Your message"
-                 aria-label="chat" name="message" onChange={handleSend} value={message}/>
+                 aria-label="chat" name="message" onChange={handleSend} value={message}
+
+          />
           <div className="input-group-append">
-            <button className="btn btn-outline-success" type="button" onClick={onSendClick}>
+            <button className="btn btn-outline-success" type="submit">
               Send
             </button>
           </div>
