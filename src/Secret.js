@@ -6,7 +6,6 @@ import {AuthContext} from "./utils/Auth";
 import {FirestoreContext} from "./utils/Firestore";
 
 const Secret = ()=>{
-
   const {currentUser} = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const {messages} = useContext(FirestoreContext);
@@ -25,11 +24,12 @@ const Secret = ()=>{
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault();
-      onSendClick();
+      onSendClick(event);
     }
   };
 
-  const onSendClick = ()=>{
+  const onSendClick = (event)=>{
+    event.preventDefault();
     if (message.length > 0){
       const time = (new Date()).getTime();
       const temp = [...messages, {sender: currentUser.uid, body:message, date:time}];
