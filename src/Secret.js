@@ -8,7 +8,7 @@ import {FirestoreContext} from "./utils/Firestore";
 const Secret = ()=>{
   const {currentUser} = useContext(AuthContext);
   const [message, setMessage] = useState("");
-  const {messages} = useContext(FirestoreContext);
+  const {messages, setMessages} = useContext(FirestoreContext);
 
   useEffect(()=>{
     const obj = document.getElementById("scroll");
@@ -35,7 +35,7 @@ const Secret = ()=>{
       const temp = [...messages, {sender: currentUser.uid, body:message, date:time}];
       const stringTemp = JSON.stringify(temp);
       const db = firebase.firestore().collection("messages").doc(currentUser.uid);
-      db.set({string:stringTemp}).then(()=>console.log("sucess")).catch(err=>console.log(err));
+      db.set({string:stringTemp}).then(()=>console.log("success")).catch(err=>console.log(err));
       setMessage("");
     }
   };
@@ -68,7 +68,10 @@ const Secret = ()=>{
 
         <div className="col-xl-7 col-lg-8 col-md-9 col-sm-11 col-11 mx-auto">
           <button className="btn btn-outline-success btn-lg btn-block"
-            onClick={()=>app.auth().signOut()}>
+            onClick={()=>{
+              app.auth().signOut().then();
+              setMessages([]);
+            }}>
             Logout
           </button>
         </div>
