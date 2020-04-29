@@ -10,7 +10,7 @@ const Secret = ()=>{
   const {currentUser} = useContext(AuthContext);
   const db = firebase.firestore().collection("messages");
   const [message, setMessage] = useState("");
-  const {messages} = useContext(FirestoreContext);
+  const {messages, setMessages} = useContext(FirestoreContext);
 
   useEffect(()=>{
     const obj = document.getElementById("scroll");
@@ -24,9 +24,12 @@ const Secret = ()=>{
   }
 
   const onSendClick = ()=>{
-    const time = firebase.firestore.FieldValue.serverTimestamp();
-    db.add({sender: currentUser.email, body:message, date:time}).then(()=>setMessage(""))
-    .catch(err=>console.log(err));
+    const time = (new Date()).getTime();
+    const temp = [...messages, {sender: currentUser.uid, body:message, date:time}];
+    const stringTemp = JSON.stringify(temp);
+    const db = firebase.firestore().collection("messages").doc(currentUser.uid);
+    db.set({string:stringTemp}).then(()=>console.log("sucess")).catch(err=>console.log(err));
+    setMessage("");
   }
 
   return (

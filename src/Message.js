@@ -5,7 +5,7 @@ const Message = (props)=>{
 
   const {currentUser} = useContext(AuthContext);
 
-  if (currentUser.email === props.sender){
+  if (currentUser.uid === props.sender){
     return (
 
         <div className="container row d-flex ml-auto mr-0 my-3 w-75">
