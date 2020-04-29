@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from "react";
-import app from "./utils/Firebase";
 import Message from "./Message";
 import firebase from "./utils/Firebase";
 import {AuthContext} from "./utils/Auth";
@@ -69,7 +68,7 @@ const Secret = ()=>{
         <div className="col-xl-7 col-lg-8 col-md-9 col-sm-11 col-11 mx-auto">
           <button className="btn btn-outline-success btn-lg btn-block"
             onClick={()=>{
-              app.auth().signOut().then();
+              firebase.auth().signOut().then();
               setMessages([]);
             }}>
             Logout

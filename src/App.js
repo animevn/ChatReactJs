@@ -29,7 +29,7 @@ const App = ()=>{
 
            {/*Appcode is up here*/}
          </div>
-         {/*<Footer/>*/}
+         <Footer/>
        </div>
      </Router>
    </AuthProvider>
