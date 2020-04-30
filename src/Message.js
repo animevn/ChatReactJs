@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {AuthContext} from "./utils/Auth";
+import {AuthContext} from "./firebase/Auth";
 
 const Message = (props)=>{
 

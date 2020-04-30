@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
-import app from "./utils/Firebase";
+import app from "./firebase/Firebase";
 import {withRouter, Redirect} from "react-router-dom";
-import {AuthContext} from "./utils/Auth";
+import {AuthContext} from "./firebase/Auth";
 
 const Register = ()=>{
 

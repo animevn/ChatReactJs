@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import Message from "./Message";
-import firebase from "./utils/Firebase";
-import {AuthContext} from "./utils/Auth";
-import {FirestoreContext} from "./utils/Firestore";
+import firebase from "./firebase/Firebase";
+import {AuthContext} from "./firebase/Auth";
+import {FirestoreContext} from "./firebase/Firestore";
 
 const Secret = ()=>{
   const {currentUser} = useContext(AuthContext);
