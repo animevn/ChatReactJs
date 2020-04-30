@@ -3,7 +3,7 @@ import Header from "./main/Header"
 import Footer from "./main/Footer";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {AuthProvider} from "./firebase/Auth";
-import PrivateRoute from "./firebase/PrivateRoute";
+import PrivateRoute from "./store/PrivateRoute";
 import Home from "./Home";
 import Login from "./store/Login";
 import Register from "./store/Register";

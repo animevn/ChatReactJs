@@ -8,35 +8,27 @@ import SendIcon from '@material-ui/icons/Send';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
-import {AuthContext} from "../firebase/Auth";
-import {FirestoreContext} from "../firebase/Firestore";
-import firebase from "../firebase/Firebase";
-import Message from "../Message";
+import {AuthContext} from "./firebase/Auth";
+import {FirestoreContext} from "./firebase/Firestore";
+import firebase from "./firebase/Firebase";
+import Message from "./Message";
+import {makeStyles} from "@material-ui/core/styles";
 
-export default function ChatIcon(){
+export default function ChatClient(){
 
   const {currentUser} = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const {messages} = useContext(FirestoreContext);
 
-  const [toggle, setToggle] = useState(false);
-  const [chatHeight, setChatHeight] = useState("50vh");
+  const [toggle, setToggle] = useState(true);
 
   useEffect(()=>{
     const obj = document.getElementById("scroll");
-    obj.scrollTop = obj.scrollHeight;
+    if (obj) obj.scrollTop = obj.scrollHeight;
   });
 
   const onToggleChat = () => {
     setToggle(!toggle);
-  };
-
-  const titleStyle = {
-    root:{
-      fontSize: "5rem",
-      color: "red",
-      margin: "1rem auto 0 auto"
-    }
   };
 
   const fabStyle = {
@@ -47,12 +39,15 @@ export default function ChatIcon(){
     },
   };
 
-  const tabStyle = {
+  const tabStyle = makeStyles(theme=>({
     root: {
       position: 'fixed',
-      bottom: "1rem",
-      width:"90vw",
-      height: chatHeight,
+      bottom: 0,
+      left: "5rem",
+      [theme.breakpoints.down(600)]: {
+        left: "auto",
+      },
+      height: "50vh",
       margin: "0 auto 0 auto",
       zIndex: "10",
       backgroundColor: "#fff0f5ee",
@@ -61,7 +56,7 @@ export default function ChatIcon(){
       WebkitOverflowScrolling: "touch",
 
     },
-  }
+  }));
 
   const tabBoxTopStyle = {
     root:{
@@ -70,6 +65,7 @@ export default function ChatIcon(){
       justifyContent: "flex-end",
       alignItems: "stretch",
       width: "100%",
+      padding: "3px",
       backgroundColor: "lavender",
     }
   };
@@ -83,18 +79,15 @@ export default function ChatIcon(){
       justifyContent: "space-between",
       alignItems: "center",
       width: "100%",
-      backgroundColor: "lavender",
-      padding: "3px 0 3px 3px",
-
+      paddingLeft:"3px",
     }
   };
 
   const messageStyle = {
     root:{
-      marginRight: "auto",
       flexGrow: 1,
       backgroundColor: "white",
-      overflow: "hidden",
+      multiline:true,
     }
   };
 
@@ -103,7 +96,7 @@ export default function ChatIcon(){
       marginLeft: "0.5rem",
       marginRight: "0.5rem",
     }
-  }
+  };
 
   const handleSend = event=>{
     event.preventDefault();
@@ -141,12 +134,20 @@ export default function ChatIcon(){
       overflowY: "scroll",
 
     }
-  }
+  };
 
+  // const inputStyle = makeStyles(()=>({
+  //   root:{
+  //     height:"1rem",
+  //     multiline: true,
+  //   }
+  // }));
+
+  const chatWidth = {xs:"90vw", sm:"400px", md:"400px", lg:"400px", xl:"400px"};
 
   return (
     <>
-      <Zoom in={toggle} timeout={600}>
+      <Zoom in={toggle} timeout={500}>
         <div onClick={onToggleChat} role="presentation" style={fabStyle.root}>
           <Fab color="secondary" size="small" aria-label="scroll back to top">
             <PermPhoneMsgIcon/>
@@ -156,7 +157,12 @@ export default function ChatIcon(){
 
       <Slide direction="up" in={!toggle} timeout={600} mountOnEnter unmountOnExit>
 
-        <Box role="presentation" style={tabStyle.root} boxShadow={3}>
+        <Box role="presentation"
+             className={tabStyle().root}
+             boxShadow={3}
+             width={chatWidth}
+        >
+
           <Box style={tabBoxTopStyle.root}>
             <Box>
               <IconButton onClick={onToggleChat} size="small" >
@@ -179,12 +185,18 @@ export default function ChatIcon(){
                onSubmit={onSendClick}
                style={tabBoxBottomStyle.root}
           >
-            <TextField variant="outlined" multiline={true} style={messageStyle.root}
-                       name="body" value={message} onChange={handleSend} required
+            <TextField variant="outlined"
+                       margin="dense"
+                       multiline={true}
+                       style={messageStyle.root}
+                       name="body"
+                       value={message}
+                       onChange={handleSend} required
                        onKeyDown={handleKeyDown}
+                       // InputProps={{className:inputStyle().root}}
             />
 
-            <IconButton style={buttonSendStyle.root} type="submit">
+            <IconButton style={buttonSendStyle.root} type="submit" size="small">
               <SendIcon color="secondary"/>
             </IconButton>
 

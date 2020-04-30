@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Grid from "@material-ui/core/Grid";
-import ChatIcon from "./main/ChatIcon";
+import ChatClient from "./ChatClient";
 
 export default function Home(){
 
@@ -49,7 +49,7 @@ export default function Home(){
       <Typography style={titleStyle.root}>Enter Secret</Typography>
       <Typography style={titleStyle.root}>Enter Secret</Typography>
 
-      <ChatIcon/>
+      <ChatClient/>
 
     </Grid>
   );
