@@ -9,16 +9,18 @@ import Login from "./Login";
 import Register from "./Register";
 import Secret from "./Secret";
 import {FirestoreProvider} from "./utils/Firestore";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 const App = ()=>{
 
   return (
    <AuthProvider>
      <Router>
-       <div className="main">
-         <div className="container-fluid px-0">
+       <Box display="flex" flexDirection="column" justifyContent="space-between" minHeight="100vh">
+         <Grid>
            <Header/>
-           {/*App code is below here*/}
+           {/*app body goes down here*/}
 
            <Route exact path="/" component={Home}/>
            <Route exact path="/login" component={Login}/>
@@ -27,10 +29,10 @@ const App = ()=>{
              <PrivateRoute exact path="/secret" component={Secret}/>
            </FirestoreProvider>
 
-           {/*Appcode is up here*/}
-         </div>
+           {/*app body goes up here hahaha */}
+         </Grid>
          <Footer/>
-       </div>
+       </Box>
      </Router>
    </AuthProvider>
   );
