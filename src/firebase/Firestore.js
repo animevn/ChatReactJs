@@ -37,23 +37,6 @@ export const FirestoreProvider = ({children})=>{
     // eslint-disable-next-line
   }, [database]);
 
-  // useEffect(()=>{
-  //   async function loadMessage(){
-  //     if (currentUser){
-  //       const db = firebase.firestore().collection("messages").orderBy("date");
-  //       await db.onSnapshot(snapshot => {
-  //         let changes = snapshot.docChanges();
-  //         for (let change of changes){
-  //           if (change.type === "added"){
-  //             setMessages(olds=>[...olds, change.doc.data()])
-  //           }
-  //         }
-  //       })
-  //     }
-  //   }
-  //   loadMessage().then()
-  // }, [currentUser]);
-
   return (
     <FirestoreContext.Provider value ={{messages, setMessages}}>
       {children}

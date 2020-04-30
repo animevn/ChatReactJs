@@ -1,35 +1,58 @@
 import React, {useContext} from "react";
 import {AuthContext} from "./firebase/Auth";
+import Box from "@material-ui/core/Box";
+import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded';
+import {Typography} from "@material-ui/core";
 
 const Message = (props)=>{
 
   const {currentUser} = useContext(AuthContext);
 
+  const messageSendStyle = {
+    root:{
+      width:"60%",
+      margin: "1rem",
+      padding: "0.5rem",
+      borderRadius: "0.5rem",
+      multiline: true,
+      backgroundColor: "palegreen",
+      wordWrap: "break-word",
+    }
+  }
+
+  const messageReceiveStyle = {
+    root:{
+      width:"60%",
+      margin: "1rem",
+      padding: "0.5rem",
+      borderRadius: "0.5rem",
+      multiline: true,
+      backgroundColor: "white",
+      wordWrap: "break-word",
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"flex-start",
+    }
+  }
+
   if (currentUser.uid === props.sender){
     return (
-
-        <div className="container row d-flex ml-auto mr-0 my-3 w-75">
-          <div className="border rounded-lg col-8 border-success ml-auto mr-0 flex-grow-1 p-2">
-            <p className="my-auto text-justify">{props.body}</p>
-          </div>
-          <span className="ml-auto mr-2 my-auto">
-            <img className="rounded-circle small-image mx-1 my-auto"
-                 src="/images/user-check.svg" alt="me"/>
-          </span>
-
-        </div>
+        <Box display="flex" flexDirection="row" justifyContent="flex-end">
+          <Box boxShadow={3} style={messageSendStyle.root}>
+            <Typography>{props.body}</Typography>
+          </Box>
+        </Box>
     )
   }else{
     return (
-      <div className="container row d-flex mr-auto ml-0 my-3 w-75">
-        <span className="mr-auto ml-2 my-auto">
-          <img className="rounded-circle small-image mx-1 my-auto"
-               src="/images/user-circle.svg" alt="you"/>
-        </span>
-        <div className="border rounded-lg border-success col-8 flex-grow-1 mr-5 p-2">
-          <p className="my-auto text-justify">{props.body}</p>
-        </div>
-      </div>
+      <Box display="flex" flexDirection="row" justifyContent="flex-start">
+        <Box boxShadow={3}
+             style={messageReceiveStyle.root}
+        >
+          <SentimentVerySatisfiedRoundedIcon/>
+          {props.body}
+        </Box>
+      </Box>
     );
   };
 }

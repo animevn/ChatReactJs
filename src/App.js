@@ -5,9 +5,9 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import {AuthProvider} from "./firebase/Auth";
 import PrivateRoute from "./firebase/PrivateRoute";
 import Home from "./Home";
-import Login from "./Login";
-import Register from "./Register";
-import Secret from "./Secret";
+import Login from "./store/Login";
+import Register from "./store/Register";
+import Secret from "./store/Secret";
 import {FirestoreProvider} from "./firebase/Firestore";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -16,24 +16,24 @@ const App = ()=>{
 
   return (
    <AuthProvider>
-     <Router>
-       <Box display="flex" flexDirection="column" justifyContent="space-between" minHeight="100vh">
-         <Grid>
-           <Header/>
-           {/*app body goes down here*/}
+     <FirestoreProvider>
+       <Router>
+         <Box display="flex" flexDirection="column" justifyContent="space-between" minHeight="100vh">
+           <Grid>
+             <Header/>
+             {/*app body goes down here*/}
 
-           <Route exact path="/" component={Home}/>
-           <Route exact path="/login" component={Login}/>
-           <Route exact path="/register" component={Register}/>
-           <FirestoreProvider>
+             <Route exact path="/" component={Home}/>
+             <Route exact path="/login" component={Login}/>
+             <Route exact path="/register" component={Register}/>
              <PrivateRoute exact path="/secret" component={Secret}/>
-           </FirestoreProvider>
 
-           {/*app body goes up here hahaha */}
-         </Grid>
-         <Footer/>
-       </Box>
-     </Router>
+             {/*app body goes up here hahaha */}
+           </Grid>
+           <Footer/>
+         </Box>
+       </Router>
+     </FirestoreProvider>
    </AuthProvider>
   );
 };

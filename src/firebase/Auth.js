@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-import app from "./Firebase";
+import firebase from "./Firebase";
 
 export const AuthContext = createContext(null);
 
@@ -9,7 +9,8 @@ export const AuthProvider = ({children})=>{
 
   useEffect(()=>{
     async function getCurrentUser() {
-      await app.auth().onAuthStateChanged(setCurrentUser);
+      if (!currentUser) firebase.auth().signInAnonymously().then().catch(err=>console.log(err));
+      await firebase.auth().onAuthStateChanged(setCurrentUser);
     }
     getCurrentUser().then();
   }, []);

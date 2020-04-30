@@ -1,8 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
-import Message from "./Message";
-import firebase from "./firebase/Firebase";
-import {AuthContext} from "./firebase/Auth";
-import {FirestoreContext} from "./firebase/Firestore";
+import Message from "../Message";
+import firebase from "../firebase/Firebase";
+import {AuthContext} from "../firebase/Auth";
+import {FirestoreContext} from "../firebase/Firestore";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
 const Secret = ()=>{
   const {currentUser} = useContext(AuthContext);
@@ -40,16 +42,17 @@ const Secret = ()=>{
   };
 
   return (
-    <div className="container mt-2 test">
+    <Grid>
 
-      <div className="container border border-success px-0 rounded-lg h-75 overflow-auto"
-      id="scroll">
+      <Box display="flex" flexDirection="column" height="50vh" id="scroll"
+           style={{overflow:"auto"}}
+      >
         {messages.map((item, index)=>{
           return <Message key={index} sender={item.sender} body={item.body}/>
         })}
-      </div>
+      </Box>
 
-      <form className="container fixed-bottom mb-5"
+      <Box component="form" className="container fixed-bottom mb-5"
             onSubmit={onSendClick}
             onKeyDown={handleKeyDown}>
         <div className="input-group input-group-lg col-xl-7 col-lg-8
@@ -74,9 +77,9 @@ const Secret = ()=>{
             Logout
           </button>
         </div>
-      </form>
+      </Box>
 
-    </div>
+    </Grid>
   );
 };
 
