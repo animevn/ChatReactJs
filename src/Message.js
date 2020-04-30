@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded';
 import {Typography} from "@material-ui/core";
 
-const Message = (props)=>{
+export default function Message(props){
 
   const {currentUser} = useContext(AuthContext);
 
@@ -18,7 +18,7 @@ const Message = (props)=>{
       backgroundColor: "palegreen",
       wordWrap: "break-word",
     }
-  }
+  };
 
   const messageReceiveStyle = {
     root:{
@@ -33,7 +33,7 @@ const Message = (props)=>{
       flexDirection:"row",
       justifyContent:"flex-start",
     }
-  }
+  };
 
   if (currentUser.uid === props.sender){
     return (
@@ -54,7 +54,5 @@ const Message = (props)=>{
         </Box>
       </Box>
     );
-  };
+  }
 }
-
-export default Message;
