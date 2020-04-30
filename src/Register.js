@@ -2,6 +2,12 @@ import React, {useContext} from "react";
 import app from "./firebase/Firebase";
 import {withRouter, Redirect} from "react-router-dom";
 import {AuthContext} from "./firebase/Auth";
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import TextField from "@material-ui/core/TextField/TextField";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const Register = ()=>{
 
@@ -20,27 +26,53 @@ const Register = ()=>{
     return <Redirect to="/secret" />
   }
 
-  return (
-    <div className="body-signin text-center">
+  const iconStyle = {
+    root:{
+      fontSize: "10rem",
+      color: "red",
+      margin: "1rem auto 0 auto"
+    }
+  };
 
-      <form className="form-signin" onSubmit={handleRegister}>
-        <img className="secret_image" src="images/key.svg" alt="key" />
-        <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
-        <label htmlFor="inputEmail" className="sr-only">Email address</label>
-        <input type="email" id="inputEmail" className="form-control" placeholder="Email address"
-               name="email" required autoFocus />
-        <label htmlFor="inputPassword" className="sr-only">Password</label>
-        <input type="password" id="inputPassword" className="form-control"
-               placeholder="Password"
-               name="password" required />
-        <div className="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
-        <button className="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-      </form>
-    </div>
+  const titleStyle = {
+    root:{
+      fontSize: "5rem",
+      color: "red",
+      margin: "1rem auto 0 auto"
+    }
+  };
+
+  const boxRegisterFormStyle = {
+    root:{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      width: "80%",
+      marginTop: "1rem",
+    }
+  };
+  const loginItemStyle = {
+    root:{
+      marginBottom: "1rem",
+    }
+  };
+
+  return (
+    <Grid container direction="column" justify="center" alignItems="center">
+
+      <AccountCircleOutlinedIcon style={iconStyle.root}/>
+      <Typography style={titleStyle.root}>Just Register</Typography>
+
+      <Box component="form" style={boxRegisterFormStyle.root}
+           onSubmit={handleRegister}>
+        <TextField variant="outlined" label="Email" style={loginItemStyle.root}
+                   name="email" required/>
+        <TextField variant="outlined" label="Password" style={loginItemStyle.root}
+                   name="password" required/>
+
+        <Button type="submit" variant="contained" color="secondary">Sign in</Button>
+      </Box>
+    </Grid>
   );
 };
 

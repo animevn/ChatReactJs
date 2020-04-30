@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {AuthContext} from "./firebase/Auth";
-import {withRouter, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import app from "./firebase/Firebase";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const Login = ()=>{
+export default function Login(){
 
   const {currentUser} = useContext(AuthContext);
   if (currentUser) {
@@ -76,5 +76,3 @@ const Login = ()=>{
     </Grid>
   );
 };
-
-export default withRouter(Login);

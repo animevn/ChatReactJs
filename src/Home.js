@@ -12,6 +12,7 @@ export default function Home(){
 
   const history = useHistory();
   const {currentUser} = useContext(AuthContext);
+
   if (currentUser) {
     return <Redirect to="/secret" />
   }
@@ -20,13 +21,13 @@ export default function Home(){
     firebase.auth().signInAnonymously().then().catch(err=>console.log(err));
   };
 
-  function onLoginClick() {
+  const onLoginClick = ()=>{
     history.push("/login");
-  }
+  };
 
-  function onRegisterClick() {
+  const onRegisterClick = ()=>{
     history.push("/register");
-  }
+  };
 
   const iconStyle = {
     root:{
@@ -34,7 +35,7 @@ export default function Home(){
       color: "red",
       margin: "1rem auto 0 auto"
     }
-  }
+  };
 
   const titleStyle = {
     root:{
@@ -42,7 +43,7 @@ export default function Home(){
       color: "red",
       margin: "1rem auto 0 auto"
     }
-  }
+  };
 
   const boxForButtons = {
     root:{
@@ -52,13 +53,13 @@ export default function Home(){
       width: "50%",
       marginTop: "1rem",
     }
-  }
+  };
 
   const buttonRegisterAndLoginStyle = {
     root:{
       width: "48%",
     }
-  }
+  };
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
