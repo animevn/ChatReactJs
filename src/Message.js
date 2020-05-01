@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {AuthContext} from "./firebase/Auth";
+import {AuthContext} from "./datastore/Auth";
 import Box from "@material-ui/core/Box";
 import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded';
 import {Typography} from "@material-ui/core";
@@ -23,17 +23,24 @@ export default function Message(props){
   const messageReceiveStyle = {
     root:{
       width:"60%",
-      margin: "1rem",
-      padding: "0.5rem",
-      borderRadius: "0.5rem",
-      multiline: true,
-      backgroundColor: "white",
-      wordWrap: "break-word",
+      margin: "0.5rem",
       display:"flex",
       flexDirection:"row",
       justifyContent:"flex-start",
+      alignItems:"center",
     }
   };
+
+  const messageReceiveTextStyle = {
+    root:{
+      margin: "1rem",
+      multiline: true,
+      wordWrap: "break-word",
+      backgroundColor: "white",
+      borderRadius: "0.5rem",
+      padding: "0.5rem",
+    }
+  }
 
   if (currentUser.uid === props.sender){
     return (
@@ -45,11 +52,9 @@ export default function Message(props){
     )
   }else{
     return (
-      <Box display="flex" flexDirection="row" justifyContent="flex-start">
-        <Box boxShadow={3}
-             style={messageReceiveStyle.root}
-        >
-          <SentimentVerySatisfiedRoundedIcon/>
+      <Box style={messageReceiveStyle.root}>
+        <SentimentVerySatisfiedRoundedIcon/>
+        <Box style={messageReceiveTextStyle.root} boxShadow={3}>
           {props.body}
         </Box>
       </Box>

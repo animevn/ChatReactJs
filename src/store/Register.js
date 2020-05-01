@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
-import app from "../firebase/Firebase";
+import app from "../datastore/Firebase";
 import {withRouter, Redirect} from "react-router-dom";
-import {AuthContext} from "../firebase/Auth";
+import {AuthContext} from "../datastore/Auth";
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";

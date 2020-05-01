@@ -8,9 +8,9 @@ import SendIcon from '@material-ui/icons/Send';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
-import {AuthContext} from "./firebase/Auth";
-import {FirestoreContext} from "./firebase/Firestore";
-import firebase from "./firebase/Firebase";
+import {AuthContext} from "./datastore/Auth";
+import {FirestoreContext} from "./datastore/Firestore";
+import firebase from "./datastore/Firebase";
 import Message from "./Message";
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -129,10 +129,8 @@ export default function ChatClient(){
       display: "flex",
       flexDirection: "column",
       height:"75%",
-      WebkitOverflowScrolling: "touch",
-      WebkitBoxFlex: 0,
+      // WebkitOverflowScrolling: "touch",
       overflowY: "scroll",
-
     }
   };
 
@@ -174,8 +172,8 @@ export default function ChatClient(){
           <Box style={chatBoxStyle.root} id="scroll">
             {messages.map((item, index)=>{
               return (
-                <Box>
-                  <Message key={index} sender={item.sender} body={item.body}/>
+                <Box key={index}>
+                  <Message sender={item.sender} body={item.body}/>
                 </Box>
               )
             })}

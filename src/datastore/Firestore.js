@@ -1,18 +1,16 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
-import firebase from "./Firebase"
 import {AuthContext} from "./Auth";
 
 export const FirestoreContext = createContext(null);
 
 export const FirestoreProvider = ({children})=>{
-  const {currentUser} = useContext(AuthContext);
+  const {currentUser, db} = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [database, setDatabase] = useState();
 
   useEffect(()=>{
     async function loadMessage(){
-      if (currentUser){
-        const db = firebase.firestore().collection("messages").doc(currentUser.uid);
+      if (db){
         db.onSnapshot(async doc => {
           if (doc.exists){
             await setDatabase(doc.data().string);
@@ -21,7 +19,7 @@ export const FirestoreProvider = ({children})=>{
       }
     }
     loadMessage().then()
-  }, [currentUser]);
+  }, [db]);
 
   useEffect(()=>{
     async function populateMessages(){

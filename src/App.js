@@ -2,13 +2,13 @@ import React from "react";
 import Header from "./main/Header"
 import Footer from "./main/Footer";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import {AuthProvider} from "./firebase/Auth";
+import {AuthProvider} from "./datastore/Auth";
 import PrivateRoute from "./store/PrivateRoute";
 import Home from "./Home";
 import Login from "./store/Login";
 import Register from "./store/Register";
 import Secret from "./store/Secret";
-import {FirestoreProvider} from "./firebase/Firestore";
+import {FirestoreProvider} from "./datastore/Firestore";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 

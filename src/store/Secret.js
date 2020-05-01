@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import Message from "../Message";
-import firebase from "../firebase/Firebase";
-import {AuthContext} from "../firebase/Auth";
-import {FirestoreContext} from "../firebase/Firestore";
+import firebase from "../datastore/Firebase";
+import {AuthContext} from "../datastore/Auth";
+import {FirestoreContext} from "../datastore/Firestore";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
