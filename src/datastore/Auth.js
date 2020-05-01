@@ -9,7 +9,7 @@ export const AuthProvider = ({children})=>{
   const [db, setDb] = useState(null);
 
   const saveStyle = localStorage.getItem("saveStyle");
-  const [style, setStyle] = useState(saveStyle? JSON.parse(saveStyle) : null);
+  const [styleStore, setStyleStore] = useState(saveStyle? JSON.parse(saveStyle) : null);
 
   useEffect(()=>{
     async function setStyleDB() {
@@ -17,16 +17,16 @@ export const AuthProvider = ({children})=>{
       dbStyle.onSnapshot(async doc => {
         if (doc.exists){
           const temp = await JSON.parse(doc.data().style);
-          await setStyle(temp);
+          await setStyleStore(temp);
         }
       }, error => console.log(error));
     }
     setStyleDB().then();
-  }, [])
+  }, []);
 
   useEffect(()=>{
-    localStorage.setItem("saveStyle", JSON.stringify(style));
-  }, [style]);
+    localStorage.setItem("saveStyle", JSON.stringify(styleStore));
+  }, [styleStore]);
 
   useEffect(()=>{
     async function getCurrentUser() {
@@ -51,7 +51,7 @@ export const AuthProvider = ({children})=>{
 
 
   return (
-    <AuthContext.Provider value ={{currentUser, setCurrentUser, db, style}}>
+    <AuthContext.Provider value ={{currentUser, setCurrentUser, db, styleStore}}>
       {children}
     </AuthContext.Provider>
   );
